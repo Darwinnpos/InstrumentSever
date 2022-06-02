@@ -24,6 +24,15 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="IOCfg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="flow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="device2Can.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -33,6 +42,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="stepMotorCfg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="IOCfg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="flow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="device2Can.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

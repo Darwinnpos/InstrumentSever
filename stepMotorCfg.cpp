@@ -3,7 +3,6 @@
 
 
 
-
 CMotorCfg::CMotorCfg()
 {
 }
@@ -12,21 +11,30 @@ CMotorCfg::~CMotorCfg()
 {
 }
 
-MotorCfg CMotorCfg::GetMotorCfgFromName(string name)
+MotorSpdCfg CMotorCfg::GetMotorSpdCfgFromName(string name, uint8_t index)
 {
-	return motorCfgMap[name];
+	MotorSpdCfg motorSpdCfg;
+	auto motorCfg = motorCfgMap[name];
+	for (auto iter = motorCfg.motorAllSpdCfg.begin(); iter != motorCfg.motorAllSpdCfg.end(); iter++)
+	{
+		if (iter->Index == index)
+		{
+			motorSpdCfg = *iter;
+			return motorSpdCfg;
+		}
+	}
+	motorSpdCfg.Index = 0;
+	return motorSpdCfg;
 }
 
-int CMotorCfg::AddMotorCfg(string name, MotorCfg motorCfg)
+MotorBaseCfg CMotorCfg::GetMotorBaseCfgFromName(string name)
 {
-	auto pair = make_pair(name, motorCfg);
-	motorCfgMap.insert(pair);
-	return 0;
+	return motorCfgMap[name].motorBaseCfg;
 }
 
-int CMotorCfg::DeleteMotorCfg(string name)
+int CMotorCfg::LoadMotorCfg(map<string, MotorCfg> _motorCfgMap)
 {
-	motorCfgMap.erase(name);
+	motorCfgMap = _motorCfgMap;
 	return 0;
 }
 
@@ -35,3 +43,4 @@ int CMotorCfg::CleanMotorCfg(string name)
 	motorCfgMap.erase(motorCfgMap.begin(), motorCfgMap.end());
 	return 0;
 }
+
