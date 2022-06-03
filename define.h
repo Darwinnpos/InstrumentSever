@@ -8,11 +8,11 @@ using namespace std;
 //abstract device
 enum class DeviceType
 {
-	STEP_MOTOR = 0,
+	STEP_MOTOR = 0, 
 	IO = 1
 };
 
-
+//用于存储单个器件信息
 typedef struct DeviceInfo
 {
 	string name;
@@ -20,32 +20,35 @@ typedef struct DeviceInfo
 	uint8_t channel;
 }DeviceInfo;
 
-
+//用于存储一组器件信息
 typedef struct GroupDeviceInfo
 {
 	string name;
 	vector <string> single_name;
 }GroupDeviceInfo;
 
-
-typedef struct SwitchChl
+//步进电机配置相关结构体
+//用于存储一组步进电机开关信息
+typedef struct AllSwitchInfo
 {
-	uint8_t reset;
-	uint8_t limit;
-}SwitchChl;
+	DeviceInfo reset;
+	DeviceInfo limit;
+}AllSwitchInfo;
 
-//step motor
+//用于存储一组步进电机基础信息
 typedef struct MotorBaseCfg
 {
 	bool hardware_dir;
 	bool logic_dir;
-	SwitchChl switchChannel;
+	AllSwitchInfo allSwitchInfo;
 	double RateCurrent;
 }MotorBaseCfg;
 
+//用于存储一组步进电机速度信息
 typedef struct MotorSpdCfg
 {
 	uint8_t Index;
+	string spdName;
 	double VMax;
 	double A1;
 	double A2;
@@ -59,6 +62,7 @@ typedef struct MotorSpdCfg
 	double DCurrentOffset;
 }MotorSpdCfg;
 
+//用于存储步进电机信息，一组基础信息，多组速度信息
 typedef struct MotorCfg
 {
 	MotorBaseCfg motorBaseCfg;

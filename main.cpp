@@ -6,8 +6,8 @@ using namespace std;
 
 int main()
 {
-    //确保实现测试函数
-    CInstrument* instrument = new CInstrument();
+    //确保实现测试函数   
+    CInstrument::GetInstance()->ClearIOCfg();
     std::cout << "Hello World!\n" << endl;
     return 0;
 }

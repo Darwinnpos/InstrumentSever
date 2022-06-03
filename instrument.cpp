@@ -39,9 +39,14 @@ GroupDeviceInfo CInstrument::GetGroupDevcieInfoFromName(string name)
 	return abstractDevice->GetGroupDevcieInfoFromName(name);
 }
 
-MotorSpdCfg CInstrument::GetMotorSpdCfgFromName(string name, uint8_t index)
+MotorSpdCfg CInstrument::GetMotorSpdCfgFromName(string name, uint8_t spdIndex)
 {
-	return motorCfg->GetMotorSpdCfgFromName(name, index);
+	return motorCfg->GetMotorSpdCfgFromName(name, spdIndex);
+}
+
+MotorSpdCfg CInstrument::GetMotorSpdCfgFromName(string name, string spdName)
+{
+	return motorCfg->GetMotorSpdCfgFromName(name, spdName);
 }
 
 MotorBaseCfg CInstrument::GetMotorBaseCfgFromName(string name)
@@ -56,40 +61,40 @@ int CInstrument::ClearAllMotorCfg()
 
 int CInstrument::LoadMotorCfg(map<string, MotorCfg> _motorCfgMap)
 {
-	return 0;
+	return motorCfg->LoadMotorCfg(_motorCfgMap);
 }
 
 int CInstrument::AddSingleMotorCfg(string name, MotorCfg _motorCfg)
 {
-	return 0;
+	return motorCfg->AddSingleMotorCfg(name, _motorCfg);
 }
 
 int CInstrument::DeleteSingleMotorCfg(string name)
 {
-	return 0;
+	return motorCfg->DeleteSingleMotorCfg(name);
 }
 
 IOConfig CInstrument::GetIOCfgFromName(string name)
 {
-	return IOConfig();
+	return IOCfg->GetIOCfgFromName(name);
 }
 
 int CInstrument::ClearIOCfg()
 {
-	return 0;
+	return IOCfg->ClearIOCfg();
 }
 
 int CInstrument::LoadIOCfg(map<string, IOConfig> _IOCfgMap)
 {
-	return 0;
+	return IOCfg->LoadIOCfg(_IOCfgMap);
 }
 
 int CInstrument::AddSingleIOCfg(string name, IOConfig _IOCfg)
 {
-	return 0;
+	return IOCfg->AddSingleIOCfg(name, _IOCfg);
 }
 
 int CInstrument::DeleteSingleIOCfg(string name)
 {
-	return 0;
+	return IOCfg->DeleteSingleIOCfg(name);
 }

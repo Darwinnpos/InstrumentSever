@@ -24,7 +24,8 @@ public:
 		return ins;	
 	}
 	
-	MotorSpdCfg GetMotorSpdCfgFromName(string name,uint8_t index);
+	MotorSpdCfg GetMotorSpdCfgFromName(string name,uint8_t spdIndex);
+	MotorSpdCfg GetMotorSpdCfgFromName(string name, string spdName);
 	MotorBaseCfg GetMotorBaseCfgFromName(string name);
 	int ClearAllMotorCfg();
 	int LoadMotorCfg(map<string, MotorCfg> _motorCfgMap);

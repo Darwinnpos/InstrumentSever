@@ -13,14 +13,16 @@ int CIOCfg::LoadIOCfg(map<string, IOConfig> _IOCfgMap)
 	IOCfgMap = _IOCfgMap;
 	return 0;
 }
-//TODO
+
 int CIOCfg::AddSingleIOCfg(string name, IOConfig _IOCfg)
 {
+	IOCfgMap.insert(make_pair(name, _IOCfg));
 	return 0;
 }
-//TODO
+
 int CIOCfg::DeleteSingleIOCfg(string name)
 {
+	IOCfgMap.erase(name);
 	return 0;
 }
 
