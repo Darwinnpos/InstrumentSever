@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 using namespace std;
-
 
 //abstract device
 enum class DeviceType
@@ -17,6 +17,7 @@ typedef struct DeviceInfo
 {
 	string name;
 	DeviceType device_type;
+	uint8_t board_num;
 	uint8_t channel;
 }DeviceInfo;
 
@@ -49,18 +50,15 @@ typedef struct MotorSpdCfg
 {
 	uint8_t Index;
 	string spdName;
-	double VMax;
-	double A1;
-	double A2;
-	double V_A1A2;
-	double D1;
-	double D2;
-	double V_D1D2;
-	double VStart;
-	double VStop;
-	double ACurrentOffset;//Acceleration current compensation coefficient, default is 1
-	double DCurrentOffset;
+	map<string, float> paramList;
 }MotorSpdCfg;
+
+//用于构建映射
+typedef struct String2Int
+{
+	string _string;
+	uint8_t _int;
+}String2Int;
 
 //用于存储步进电机信息，一组基础信息，多组速度信息
 typedef struct MotorCfg
@@ -78,10 +76,21 @@ typedef struct IOConfig
 
 //Flow struct
 //这是顺序结构
+typedef struct Param
+{
+	string paramName;
+	union {
+		float f_param;
+		uint8_t u8_param;
+		//string str_param;
+	};	
+}Param;
+
+//
 typedef struct ActInfo
 {
 	string actMode;
-	vector<string> actParam;  //描述设备运行的一堆参数
+	vector<Param> actParam;  //描述设备运行的一堆参数
 }ActInfo;
 
 typedef struct DevActInfo
@@ -94,7 +103,7 @@ typedef struct DevActInfo
 typedef struct subTiming
 {
 	string name;
-	bool nextActRunNow; //支持串行和并行
+	bool nextActRunNow; //支持串行和并行 当nextrun = true时，立即执行下一步骤 看起来就像并行
 	vector<DevActInfo> actInfoGroup; //一组设备运行动作
 }subTiming;
 

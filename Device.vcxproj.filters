@@ -36,6 +36,9 @@
     <ClCompile Include="instrument.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="define.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -63,6 +66,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="define.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="protoCfg.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

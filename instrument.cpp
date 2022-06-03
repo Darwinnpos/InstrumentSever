@@ -4,10 +4,13 @@ CInstrument* CInstrument::instance = NULL;
 
 CInstrument::CInstrument()
 {
+	//初始化对象
 	abstractDevice = new CAbstractDevice();
 	motorCfg = new CMotorCfg();
 	IOCfg = new CIOCfg();
 	flow = new CFlow();
+	device2Can = new CDevice2Can();
+	//初始化变量信息
 }
 
 CInstrument::~CInstrument()
@@ -16,6 +19,7 @@ CInstrument::~CInstrument()
 	delete(motorCfg);
 	delete(IOCfg);
 	delete(flow);
+	delete(device2Can);
 }
 
 CInstrument* CInstrument::GetInstance()
@@ -125,3 +129,19 @@ int CInstrument::ClearAllFlow()
 {
 	return flow->ClearAllFlow();
 }
+
+int CInstrument::DeviceToCan(DeviceInfo* deviceInfo, ActInfo* actInfo)
+{
+	return device2Can->DeviceToCan(deviceInfo, actInfo);
+}
+
+int CInstrument::GetActModeMap(string actMode)
+{
+	return flow->GetActModeMap(actMode);
+}
+
+int CInstrument::GetActParamMap(string actParam)
+{
+	return flow->GetActParamMap(actParam);
+}
+

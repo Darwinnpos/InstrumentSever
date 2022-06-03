@@ -7,6 +7,7 @@
 #include "stepMotorCfg.h"
 #include "IOCfg.h"
 #include "Flow.h"
+#include "device2Can.h"
 
 using namespace std;
 //仪表类是抽象设备的具体实现
@@ -22,6 +23,7 @@ private://仪表设备所包含对象
 	CMotorCfg* motorCfg;
 	CIOCfg* IOCfg;
 	CFlow* flow;
+	CDevice2Can* device2Can;
 public:
 	//获取仪表单例
 	static CInstrument* GetInstance();
@@ -49,6 +51,12 @@ public:
 	int AddFlow(string name, Flow _flow);
 	int DeleteFlow(string name);
 	int ClearAllFlow();
+	//抽象设备到CAN
+	int DeviceToCan(DeviceInfo* deviceInfo, ActInfo* actInfo);
+public:	
+	//非外部接口使用
+	int GetActModeMap(string actMode);
+	int GetActParamMap(string actParam);
 };
 
 
