@@ -55,8 +55,8 @@ public:
 	int DeviceToCan(DeviceInfo* deviceInfo, ActInfo* actInfo);
 public:	
 	//非外部接口使用
-	int GetActModeMap(string actMode);
-	int GetActParamMap(string actParam);
+	StringCode GetStringMap(string _string);
+	vector<SpeedMap> GetSpeedParamList();
 };
 
 

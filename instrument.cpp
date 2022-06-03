@@ -1,6 +1,6 @@
 #include "instrument.h"
 
-CInstrument* CInstrument::instance = NULL;
+CInstrument* CInstrument::instance = new CInstrument;
 
 CInstrument::CInstrument()
 {
@@ -24,9 +24,6 @@ CInstrument::~CInstrument()
 
 CInstrument* CInstrument::GetInstance()
 {
-	if (instance == NULL) {
-		instance = new CInstrument();
-	}
 	return instance;
 }
 
@@ -135,13 +132,13 @@ int CInstrument::DeviceToCan(DeviceInfo* deviceInfo, ActInfo* actInfo)
 	return device2Can->DeviceToCan(deviceInfo, actInfo);
 }
 
-int CInstrument::GetActModeMap(string actMode)
+StringCode CInstrument::GetStringMap(string _string)
 {
-	return flow->GetActModeMap(actMode);
+	return flow->GetStringMap(_string);
 }
 
-int CInstrument::GetActParamMap(string actParam)
+vector<SpeedMap> CInstrument::GetSpeedParamList()
 {
-	return flow->GetActParamMap(actParam);
+	return flow->GetSpeedParamList();
 }
 

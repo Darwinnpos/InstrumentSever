@@ -8,8 +8,7 @@ CFlow::CFlow()
 {
 	//用于构建各种形式的字符串到int的索引
 	//在Can上使用int类型传输动作类型，减少传输开销
-	modeStringMapInit();
-	paramStringMapInit();
+	StringMapInit();
 }
 
 CFlow::~CFlow()
@@ -61,34 +60,29 @@ int CFlow::ClearAllFlow()
 	return 0;
 }
 
-int CFlow::GetActModeMap(string actMode)
+StringCode CFlow::GetStringMap(string _string)
 {
-	return actModeMap[actMode];
+	return stringMap[_string];
 }
 
-int CFlow::GetActParamMap(string actParam)
+vector<SpeedMap> CFlow::GetSpeedParamList()
 {
-	return actParamMap[actParam];
+	return speedParamList;
 }
 
-void CFlow::modeStringMapInit()
+void CFlow::StringMapInit()
 {
-	//添加了一些动作的字符串映射
-	for (auto i = 0; i < sizeof(actModeString2Int)/sizeof(actModeString2Int[0]); i++)
+	//添加了一些动作的字符串映射 方便使用map进行索引
+	for (auto i = 0; i < sizeof(string2Int)/sizeof(string2Int[0]); i++)
 	{
-		actModeMap.insert(make_pair(actModeString2Int[i]._string, actModeString2Int[i]._int));
-	}
-	//需要额外添加一些  配置速度参数 的字符串映射
-	for (auto i = 0; i < sizeof(spdParamString2Int) / sizeof(spdParamString2Int[0]); i++)
-	{
-		actModeMap.insert(make_pair(spdParamString2Int[i]._string, spdParamString2Int[i]._int));
-	}
-}
-
-void CFlow::paramStringMapInit()
-{
-	for (auto i = 0; i < sizeof(actParamString2Int) / sizeof(actParamString2Int[0]); i++)
-	{
-		actParamMap.insert(make_pair(actParamString2Int[i]._string, actParamString2Int[i]._int));
+		stringMap.insert(make_pair(string2Int[i]._string, string2Int[i]._int));
+		//当类型为speed中的单独添加一次索引 
+		if (string2Int[i].strType == StrType::SPD_PARAM_CAN)
+		{
+			SpeedMap speedMap;
+			speedMap.speed_param_name = string2Int[i]._string;
+			speedMap.index = string2Int[i]._int;
+			speedParamList.push_back(speedMap);
+		}
 	}
 }

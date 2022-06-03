@@ -19,55 +19,80 @@ int CDevice2Can::Motor2Can(DeviceInfo* deviceInfo, ActInfo* actInfo)
 	uint8_t channel = deviceInfo->channel;
 	//第2字节 act mode
 	//GetActModeMap
-	uint8_t actMode = CInstrument::GetInstance()->GetActModeMap(actInfo->actMode);
+	StringCode actMode = CInstrument::GetInstance()->GetStringMap(actInfo->actMode);
 
+	//使用迭代器遍历所有需要该次运动所有需要配置的参数表
 	for(auto iter = actInfo->actParam.begin(); iter != actInfo->actParam.end(); iter++)
 	{
-		//根据描述类型开始组织包
-		if (iter->paramName == "speed_num")
+		//获取该参数的索引号码 方便使用switch进行筛选 
+		StringCode Index = CInstrument::GetInstance()->GetStringMap(iter->paramName);
+		
+		vector<SpeedMap> speedMap;
+		uint8_t speedIndex;
+		MotorSpdCfg motorSpdCfg;
+		char send_msg[8];
+		string speed_name;
+		uint32_t position;
+
+		switch (Index)
 		{
-			//double actParam = iter->param;
-			uint8_t speedIndex = iter->u8_param;
-			MotorSpdCfg motorSpdCfg = CInstrument::GetInstance()->GetMotorSpdCfgFromName(deviceInfo->name, speedIndex);
-			char send_msg[8];			
-			for(auto i = 0; i < sizeof(spdParamString2Int)/sizeof(spdParamString2Int[0]); i++)
+		//	当参数描述为速度编号时 进行速度包的拆解 并配置速度参数到CAN
+		case StringCode::SPEED_NUM://
+			
+			speedIndex = iter->u8_param;
+			motorSpdCfg = CInstrument::GetInstance()->GetMotorSpdCfgFromName(deviceInfo->name, speedIndex);			
+			speedMap = CInstrument::GetInstance()->GetSpeedParamList();
+			for (auto iter = speedMap.begin(); iter != speedMap.end(); iter++)
 			{
 				send_msg[0] = channel;
-				send_msg[1] = CInstrument::GetInstance()->GetActModeMap(spdParamString2Int[i]._string);
-				float param = motorSpdCfg.paramList[spdParamString2Int[i]._string];
-				memcpy(&param,&send_msg[4],4);
+				send_msg[1] = (char)iter->index;
+				send_msg[2] = 0;
+				send_msg[3] = 0;
+				float param = motorSpdCfg.paramList[iter->speed_param_name];
+				memcpy(&param, &send_msg[4], 4);
 				Msg2Can(boardNum, send_msg);
 			}
+			break;
+		case StringCode::SPEED_NAME:
+			speed_name = iter->str_param;
+			motorSpdCfg = CInstrument::GetInstance()->GetMotorSpdCfgFromName(deviceInfo->name, speed_name);
+			speedMap = CInstrument::GetInstance()->GetSpeedParamList();
+			for (auto iter = speedMap.begin(); iter != speedMap.end(); iter++)
+			{
+				send_msg[0] = channel;
+				send_msg[1] = (char)iter->index;
+				send_msg[2] = 0;
+				send_msg[3] = 0;
+				float param = motorSpdCfg.paramList[iter->speed_param_name];
+				memcpy(&param, &send_msg[4], 4);
+				Msg2Can(boardNum, send_msg);
+			}
+			break;
+		
+		case StringCode::ABS_POSITION:
+			send_msg[0] = channel;
+			send_msg[1] = (char)Index;
+			send_msg[2] = 0;
+			send_msg[3] = 0;
+			position = round(iter->f_param);
+			memcpy(&position, &send_msg[4], 4);
+			Msg2Can(boardNum, send_msg);
+			break;
+		default:
+			break;
 		}
-		else if (iter->paramName == "speed_name")
-		{			
-			//string speed_name = iter->str_param;
-			//MotorSpdCfg motorSpdCfg = CInstrument::GetInstance()->GetMotorSpdCfgFromName(deviceInfo->name, speed_name);
-			//char send_msg[8];
-			//for (auto i = 0; i < sizeof(spdParamString2Int) / sizeof(spdParamString2Int[0]); i++)
-			//{
-			//	send_msg[0] = channel;
-			//	send_msg[1] = CInstrument::GetInstance()->GetActModeMap(spdParamString2Int[i]._string);
-			//	float param = motorSpdCfg.paramList[spdParamString2Int[i]._string];
-			//	memcpy(&param, &send_msg[4], 4);
-			//	Msg2Can(boardNum, send_msg);
-			//}
-
-		}
-		else
-		uint8_t actParamName = CInstrument::GetInstance()->GetActParamMap(iter->paramName);
-
 	}
-	//第3字节 参数列表选择
-	
-	
-	//第4字节
-
 	return 0;
 }
 
 int CDevice2Can::Msg2Can(uint8_t boardNum, char msg[8])
 {
+	//进行组包  并放置于发送消息队列
+	
+	
+
+	//监听返回包 当返回包值满足要求 则返回正确
+	//否则阻塞等待
 	return 0;
 }
 

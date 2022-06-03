@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+
 using namespace std;
 
 //abstract device
@@ -11,6 +12,7 @@ enum class DeviceType
 	STEP_MOTOR = 0, 
 	IO = 1
 };
+
 
 //用于存储单个器件信息
 typedef struct DeviceInfo
@@ -53,11 +55,52 @@ typedef struct MotorSpdCfg
 	map<string, float> paramList;
 }MotorSpdCfg;
 
+//约定协议中的枚举的值
+enum class StrType
+{
+	ACT_MODE_CAN = 0,
+	SPD_PARAM_CAN,
+	ACT_PARAM,
+	SUB_ACT_PARAM
+};
+
+enum class StringCode
+{
+	RUN = 0,
+	RUN_BACK,
+	ON,
+	OFF,
+	//spd param
+	V_MAX,
+	A1,
+	A2,
+	V_A1A2,
+	D1,
+	D2,
+	V_D1D2,
+	V_START,
+	V_STOP,
+	V_A_CURRENT_OFFSET,
+	V_D_CURRENT_OFFSET,
+	V_DEFAULT,
+	//act param
+	ABS_POSITION,
+	REL_POSITION,
+	ACT_NOW,
+	DELAY_TIME,
+	DEV_STATE,
+	SPEED,
+	//sub act param
+	SPEED_NUM,
+	SPEED_NAME
+};
+
 //用于构建映射
 typedef struct String2Int
 {
 	string _string;
-	uint8_t _int;
+	StringCode _int;
+	StrType strType;
 }String2Int;
 
 //用于存储步进电机信息，一组基础信息，多组速度信息
@@ -81,9 +124,9 @@ typedef struct Param
 	string paramName;
 	union {
 		float f_param;
-		uint8_t u8_param;
-		//string str_param;
+		uint8_t u8_param;		
 	};	
+	string str_param;
 }Param;
 
 //
@@ -107,16 +150,21 @@ typedef struct subTiming
 	vector<DevActInfo> actInfoGroup; //一组设备运行动作
 }subTiming;
 
-typedef struct Timing
+typedef struct Timing	
 {
 	string name;
 	//不支持并行
 	vector<subTiming> TimingVec;
 }Timing;
 
-
 typedef struct Flow
 {
 	string name;
 	Timing timing;
 }Flow;
+
+typedef struct SpeedMap
+{
+	string speed_param_name;
+	StringCode index;
+}SpeedMap;
