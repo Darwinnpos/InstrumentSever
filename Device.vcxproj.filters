@@ -33,6 +33,9 @@
     <ClCompile Include="device2Can.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="instrument.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -51,6 +54,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="device2Can.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="instrument.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="interface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

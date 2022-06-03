@@ -26,7 +26,7 @@ int CFlow::FlowExe(Flow flow)
 				string runDeviceName = iter2->device_name;
 				ActInfo runActInfo =  iter2->actInfo;
 				//youwenti 
-				DeviceInfo deviceInfo = CAbstractDevice::GetInstance()->GetDevcieInfoFromName(runDeviceName);
+				//DeviceInfo deviceInfo = CAbstractDevice::GetInstance()->GetDevcieInfoFromName(runDeviceName);
 
 
 			}

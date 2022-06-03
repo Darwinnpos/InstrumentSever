@@ -6,7 +6,7 @@
 using namespace std;
 
 
-CAbstractDevice* CAbstractDevice::ins = new CAbstractDevice();
+
 
 
 CAbstractDevice::CAbstractDevice()
@@ -16,11 +16,6 @@ CAbstractDevice::CAbstractDevice()
 CAbstractDevice::~CAbstractDevice()
 {
 
-}
-
-CAbstractDevice* CAbstractDevice::GetInstance()
-{
-	return CAbstractDevice::ins;
 }
 
 int CAbstractDevice::LoadAbstractDevice(vector<DeviceInfo> _allDeviceInfo, vector<GroupDeviceInfo> _allGroupDeviceInfo)
