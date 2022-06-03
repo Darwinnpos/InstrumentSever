@@ -38,9 +38,19 @@ int CMotorCfg::LoadMotorCfg(map<string, MotorCfg> _motorCfgMap)
 	return 0;
 }
 
-int CMotorCfg::CleanMotorCfg(string name)
+int CMotorCfg::AddSingleMotorCfg(string name, MotorCfg _motorCfg)
 {
-	motorCfgMap.erase(motorCfgMap.begin(), motorCfgMap.end());
+	return 0;
+}
+
+int CMotorCfg::DeleteSingleMotorCfg(string name)
+{
+	return 0;
+}
+
+int CMotorCfg::ClearAllMotorCfg()
+{
+	
 	return 0;
 }
 
