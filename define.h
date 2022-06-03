@@ -66,11 +66,11 @@ typedef struct MotorCfg
 }MotorCfg;
 
 //IOCfg
-typedef struct IOCfg
+typedef struct IOConfig
 {
 	bool direction;
 	double responseTimeMs;
-}IOCfg;
+}IOConfig;
 
 //Flow struct
 //这是顺序结构

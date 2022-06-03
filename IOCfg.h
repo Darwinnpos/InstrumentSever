@@ -13,13 +13,13 @@ public:
 	CIOCfg();
 	~CIOCfg();
 private:
-	map<string, IOCfg> IOCfgMap;
+	map<string, IOConfig> IOCfgMap;
 public:
 	//≤È—Ø
-	IOCfg GetIOCfgFromName(string name);
+	IOConfig GetIOCfgFromName(string name);
 	int ClearIOCfg();
-	int LoadIOCfg(map<string, IOCfg> _IOCfgMap);	
-	int AddSingleIOCfg(string name, IOCfg _IOCfg);
+	int LoadIOCfg(map<string, IOConfig> _IOCfgMap);
+	int AddSingleIOCfg(string name, IOConfig _IOCfg);
 	int DeleteSingleIOCfg(string name);
 };
 

@@ -8,13 +8,13 @@ CIOCfg::~CIOCfg()
 {
 }
 
-int CIOCfg::LoadIOCfg(map<string, IOCfg> _IOCfgMap)
+int CIOCfg::LoadIOCfg(map<string, IOConfig> _IOCfgMap)
 {
 	IOCfgMap = _IOCfgMap;
 	return 0;
 }
 //TODO
-int CIOCfg::AddSingleIOCfg(string name, IOCfg _IOCfg)
+int CIOCfg::AddSingleIOCfg(string name, IOConfig _IOCfg)
 {
 	return 0;
 }
@@ -24,9 +24,9 @@ int CIOCfg::DeleteSingleIOCfg(string name)
 	return 0;
 }
 
-IOCfg CIOCfg::GetIOCfgFromName(string name)
+IOConfig CIOCfg::GetIOCfgFromName(string name)
 {
-	IOCfg IOCfg;
+	IOConfig IOCfg;
 	return IOCfgMap[name];
 }
 

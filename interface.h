@@ -20,10 +20,10 @@ public:
 	virtual int AddSingleMotorCfg(string name, MotorCfg _motorCfg) = 0;
 	virtual int DeleteSingleMotorCfg(string name) = 0;
 	//操作数字IO
-	virtual IOCfg GetIOCfgFromName(string name) = 0;
+	virtual IOConfig GetIOCfgFromName(string name) = 0;
 	virtual int ClearIOCfg() = 0;
-	virtual int LoadIOCfg(map<string, IOCfg> _IOCfgMap) = 0;
-	virtual int AddSingleIOCfg(string name, IOCfg _IOCfg) = 0;
+	virtual int LoadIOCfg(map<string, IOConfig> _IOCfgMap) = 0;
+	virtual int AddSingleIOCfg(string name, IOConfig _IOCfg) = 0;
 	virtual int DeleteSingleIOCfg(string name) = 0;
 	//系统运行流程接口
 
