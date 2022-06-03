@@ -17,7 +17,6 @@ public:
 private:
 	int Motor2Can(DeviceInfo deviceInfo, ActInfo actInfo);
 
-
 public:
 	int DeviceToCan(DeviceInfo deviceInfo,ActInfo actInfo);
 

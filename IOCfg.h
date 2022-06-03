@@ -3,36 +3,24 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include "define.h"
+
 using namespace std;
 
-
-typedef struct IOCfg
-{
-	bool direction;
-	double responseTimeMs;
-}IOCfg;
-
-
-class CIOcfg
+class CIOCfg
 {
 public:
-	CIOcfg();
-	~CIOcfg();
-
+	CIOCfg();
+	~CIOCfg();
 private:
 	map<string, IOCfg> IOCfgMap;
-	static CIOcfg* ins;
 public:
-	static CIOcfg* GetInstance()
-	{
-		if (ins == nullptr)
-		{
-			ins = new CIOcfg();
-		}
-		return ins;
-	}
-	int LoadIOCfg(map<string, IOCfg> _IOCfgMap);
-	int CleanIOCfg();
+	//≤È—Ø
+	IOCfg GetIOCfgFromName(string name);
+	int ClearIOCfg();
+	int LoadIOCfg(map<string, IOCfg> _IOCfgMap);	
+	int AddSingleIOCfg(string name, IOCfg _IOCfg);
+	int DeleteSingleIOCfg(string name);
 };
 
 

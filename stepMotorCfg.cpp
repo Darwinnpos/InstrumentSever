@@ -37,17 +37,17 @@ int CMotorCfg::LoadMotorCfg(map<string, MotorCfg> _motorCfgMap)
 	motorCfgMap = _motorCfgMap;
 	return 0;
 }
-
+//TODO
 int CMotorCfg::AddSingleMotorCfg(string name, MotorCfg _motorCfg)
 {
 	return 0;
 }
-
+//TODO
 int CMotorCfg::DeleteSingleMotorCfg(string name)
 {
 	return 0;
 }
-
+//TODO
 int CMotorCfg::ClearAllMotorCfg()
 {
 	
