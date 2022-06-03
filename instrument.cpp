@@ -1,6 +1,6 @@
 #include "instrument.h"
 
-
+CInstrument* CInstrument::instance = NULL;
 
 CInstrument::CInstrument()
 {
@@ -16,34 +16,42 @@ CInstrument::~CInstrument()
 	delete(IOCfg);
 }
 
+CInstrument* CInstrument::GetInstance()
+{
+	if (instance == NULL) {
+		instance = new CInstrument();
+	}
+	return instance;
+}
+
 int CInstrument::LoadAbstractDevice(vector<DeviceInfo> _allDeviceInfo, vector<GroupDeviceInfo> _allGroupDeviceInfo)
 {
-	return 0;
+	return abstractDevice->LoadAbstractDevice(_allDeviceInfo, _allGroupDeviceInfo);
 }
 
 DeviceInfo CInstrument::GetDevcieInfoFromName(string name)
 {
-	return DeviceInfo();
+	return abstractDevice->GetDevcieInfoFromName(name);
 }
 
 GroupDeviceInfo CInstrument::GetGroupDevcieInfoFromName(string name)
 {
-	return GroupDeviceInfo();
+	return abstractDevice->GetGroupDevcieInfoFromName(name);
 }
 
 MotorSpdCfg CInstrument::GetMotorSpdCfgFromName(string name, uint8_t index)
 {
-	return MotorSpdCfg();
+	return motorCfg->GetMotorSpdCfgFromName(name, index);
 }
 
 MotorBaseCfg CInstrument::GetMotorBaseCfgFromName(string name)
 {
-	return MotorBaseCfg();
+	return motorCfg->GetMotorBaseCfgFromName(name);
 }
 
 int CInstrument::ClearAllMotorCfg()
 {
-	return 0;
+	return motorCfg->ClearAllMotorCfg();
 }
 
 int CInstrument::LoadMotorCfg(map<string, MotorCfg> _motorCfgMap)

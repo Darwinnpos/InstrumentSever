@@ -26,7 +26,6 @@ int CIOCfg::DeleteSingleIOCfg(string name)
 
 IOConfig CIOCfg::GetIOCfgFromName(string name)
 {
-	IOConfig IOCfg;
 	return IOCfgMap[name];
 }
 

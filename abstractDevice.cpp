@@ -3,11 +3,8 @@
 
 #include "abstractDevice.h"
 #include <iostream>
+
 using namespace std;
-
-
-
-
 
 CAbstractDevice::CAbstractDevice()
 {
@@ -15,7 +12,6 @@ CAbstractDevice::CAbstractDevice()
 
 CAbstractDevice::~CAbstractDevice()
 {
-
 }
 
 int CAbstractDevice::LoadAbstractDevice(vector<DeviceInfo> _allDeviceInfo, vector<GroupDeviceInfo> _allGroupDeviceInfo)
@@ -58,6 +54,3 @@ GroupDeviceInfo CAbstractDevice::GetGroupDevcieInfoFromName(string name)
 	groupDeviceInfo.name = "\0";
 	return groupDeviceInfo;
 }
-
-
-

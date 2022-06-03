@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <iostream>
 #include <vector>
 #include "interface.h"
@@ -15,11 +14,15 @@ class CInstrument:public CInterface
 public:
 	CInstrument();
 	~CInstrument();
-private:
+private://仪表的单例指针
+	static CInstrument* instance;
+private://仪表设备所包含对象
 	CAbstractDevice* abstractDevice;
 	CMotorCfg* motorCfg;
 	CIOCfg* IOCfg;
 public:
+	//获取仪表单例
+	static CInstrument* GetInstance();
 	//操作虚拟设备
 	int LoadAbstractDevice(vector<DeviceInfo> _allDeviceInfo, vector<GroupDeviceInfo> _allGroupDeviceInfo);
 	DeviceInfo GetDevcieInfoFromName(string name);

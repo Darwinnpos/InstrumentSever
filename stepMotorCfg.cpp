@@ -22,7 +22,7 @@ MotorSpdCfg CMotorCfg::GetMotorSpdCfgFromName(string name, uint8_t index)
 			motorSpdCfg = *iter;
 			return motorSpdCfg;
 		}
-	}
+	}	
 	motorSpdCfg.Index = 0;
 	return motorSpdCfg;
 }
