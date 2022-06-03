@@ -1,4 +1,3 @@
-
 #include "flow.h"
 #include "abstractDevice.h"
 
@@ -35,5 +34,25 @@ int CFlow::FlowExe(Flow flow)
 
 	}
 	
+	return 0;
+}
+
+int CFlow::FlowExe(string name)
+{
+	return 0;
+}
+
+int CFlow::AddFlow(string name, Flow flow)
+{
+	return 0;
+}
+
+int CFlow::DeleteFlow(string name)
+{
+	return 0;
+}
+
+int CFlow::ClearAllFlow()
+{
 	return 0;
 }

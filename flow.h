@@ -15,8 +15,12 @@ public:
 	~CFlow();
 
 private:
-
+	map<string, Flow> FlowMap;
 public:
-	int FlowExe(Flow flow);
+	int FlowExe(Flow flow);				//临时运行一个flow
+	int FlowExe(string name);			//通过名称找到已加载的flow进行运行
+	int AddFlow(string name, Flow flow);
+	int DeleteFlow(string name);
+	int ClearAllFlow();
 };
 

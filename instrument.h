@@ -6,6 +6,7 @@
 #include "abstractDevice.h"
 #include "stepMotorCfg.h"
 #include "IOCfg.h"
+#include "Flow.h"
 
 using namespace std;
 //仪表类是抽象设备的具体实现
@@ -20,6 +21,7 @@ private://仪表设备所包含对象
 	CAbstractDevice* abstractDevice;
 	CMotorCfg* motorCfg;
 	CIOCfg* IOCfg;
+	CFlow* flow;
 public:
 	//获取仪表单例
 	static CInstrument* GetInstance();
@@ -42,7 +44,11 @@ public:
 	int AddSingleIOCfg(string name, IOConfig _IOCfg);
 	int DeleteSingleIOCfg(string name);
 	//系统运行流程接口
-
+	int FlowExe(Flow _flow);				//临时运行一个flow
+	int FlowExe(string name);			//通过名称找到已加载的flow进行运行
+	int AddFlow(string name, Flow _flow);
+	int DeleteFlow(string name);
+	int ClearAllFlow();
 };
 
 

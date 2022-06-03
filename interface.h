@@ -27,6 +27,10 @@ public:
 	virtual int AddSingleIOCfg(string name, IOConfig _IOCfg) = 0;
 	virtual int DeleteSingleIOCfg(string name) = 0;
 	//系统运行流程接口
-
+	virtual int FlowExe(Flow _flow) = 0;				//临时运行一个flow
+	virtual int FlowExe(string name) = 0;			//通过名称找到已加载的flow进行运行
+	virtual int AddFlow(string name, Flow flow) = 0;
+	virtual int DeleteFlow(string name) = 0;
+	virtual int ClearAllFlow() = 0;
 };
 

@@ -7,6 +7,7 @@ CInstrument::CInstrument()
 	abstractDevice = new CAbstractDevice();
 	motorCfg = new CMotorCfg();
 	IOCfg = new CIOCfg();
+	flow = new CFlow();
 }
 
 CInstrument::~CInstrument()
@@ -14,6 +15,7 @@ CInstrument::~CInstrument()
 	delete(abstractDevice);
 	delete(motorCfg);
 	delete(IOCfg);
+	delete(flow);
 }
 
 CInstrument* CInstrument::GetInstance()
@@ -97,4 +99,29 @@ int CInstrument::AddSingleIOCfg(string name, IOConfig _IOCfg)
 int CInstrument::DeleteSingleIOCfg(string name)
 {
 	return IOCfg->DeleteSingleIOCfg(name);
+}
+
+int CInstrument::FlowExe(Flow _flow)
+{
+	return flow->FlowExe(_flow);
+}
+
+int CInstrument::FlowExe(string name)
+{
+	return flow->FlowExe(name);
+}
+
+int CInstrument::AddFlow(string name, Flow _flow)
+{
+	return flow->AddFlow(name, _flow);
+}
+
+int CInstrument::DeleteFlow(string name)
+{
+	return flow->DeleteFlow(name);
+}
+
+int CInstrument::ClearAllFlow()
+{
+	return flow->ClearAllFlow();
 }
