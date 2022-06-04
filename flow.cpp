@@ -2,6 +2,7 @@
 #include "abstractDevice.h"
 #include "instrument.h"
 #include "protoCfg.h"
+#include <thread>
 
 
 CFlow::CFlow()
@@ -31,7 +32,17 @@ int CFlow::FlowExe(Flow flow)
 			{
 				string runDeviceName = iter2->device_name;
 				ActInfo runActInfo =  iter2->actInfo;
-				//进行到硬件的映射转换  //调用instrument的中的对象
+				bool parallelOrNot = iter->nextActRunNow;
+				while (parallelOrNot == true)
+				{
+					//开启一个线程执行动作1
+				
+					//
+					iter2++;
+					//开启一个线程执行线程2
+
+				}
+				//进行到硬件的映射转换  
 				DeviceInfo runDeviceInfo = CInstrument::GetInstance()->GetDevcieInfoFromName(runDeviceName);
 				CInstrument::GetInstance()->DeviceToCan(&runDeviceInfo, &runActInfo);
 			}
