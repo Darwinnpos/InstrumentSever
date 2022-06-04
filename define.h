@@ -125,6 +125,7 @@ typedef struct Param
 	union {
 		float f_param;
 		uint8_t u8_param;		
+		uint32_t u32_param;
 	};	
 	string str_param;
 }Param;

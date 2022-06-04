@@ -56,7 +56,7 @@ int CFlow::FlowExe(Flow flow)
 			//将包内容取出 并传递给线程 开启线程
 			iter++;
 			runSubTiming = *iter;
-			thread[++paralleActNumber] = CreateThread(NULL, 0, ActThread, NULL, 0, NULL);
+			thread[++paralleActNumber] = CreateThread(NULL, 0, ActThread, &runSubTiming, 0, NULL);
 		}
 		//判断每个线程是否结束 如果结束 则执行下一单元
 		for (int i = 0; i < paralleActNumber; i++)

@@ -74,7 +74,7 @@ int CDevice2Can::Motor2Can(DeviceInfo* deviceInfo, ActInfo* actInfo)
 			send_msg[1] = (char)Index;
 			send_msg[2] = 0;
 			send_msg[3] = 0;
-			position = round(iter->f_param);
+			position = iter->u32_param;
 			memcpy(&position, &send_msg[4], 4);
 			Msg2Can(boardNum, send_msg);
 			break;
