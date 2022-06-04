@@ -3,7 +3,6 @@
 
 
 
-
 CMotorCfg::CMotorCfg()
 {
 }
@@ -12,26 +11,64 @@ CMotorCfg::~CMotorCfg()
 {
 }
 
-MotorCfg CMotorCfg::GetMotorCfgFromName(string name)
+MotorSpdCfg CMotorCfg::GetMotorSpdCfgFromName(string name, uint8_t spdIndex)
 {
-	return motorCfgMap[name];
+	MotorSpdCfg motorSpdCfg;
+	auto motorCfg = motorCfgMap[name];
+	for (auto iter = motorCfg.motorAllSpdCfg.begin(); iter != motorCfg.motorAllSpdCfg.end(); iter++)
+	{
+		if (iter->Index == spdIndex)
+		{
+			motorSpdCfg = *iter;
+			return motorSpdCfg;
+		}
+	}	
+	motorSpdCfg.Index = 0;
+	return motorSpdCfg;
 }
 
-int CMotorCfg::AddMotorCfg(string name, MotorCfg motorCfg)
+MotorSpdCfg CMotorCfg::GetMotorSpdCfgFromName(string name, string spdName)
 {
-	auto pair = make_pair(name, motorCfg);
-	motorCfgMap.insert(pair);
+	MotorSpdCfg motorSpdCfg;
+	auto motorCfg = motorCfgMap[name];
+	for (auto iter = motorCfg.motorAllSpdCfg.begin(); iter != motorCfg.motorAllSpdCfg.end(); iter++)
+	{
+		if (iter->spdName == spdName)
+		{
+			motorSpdCfg = *iter;
+			return motorSpdCfg;
+		}
+	}
+	motorSpdCfg.Index = 0;
+	return motorSpdCfg;
+}
+
+MotorBaseCfg CMotorCfg::GetMotorBaseCfgFromName(string name)
+{
+	return motorCfgMap[name].motorBaseCfg;
+}
+
+int CMotorCfg::LoadMotorCfg(map<string, MotorCfg> _motorCfgMap)
+{
+	motorCfgMap = _motorCfgMap;
 	return 0;
 }
 
-int CMotorCfg::DeleteMotorCfg(string name)
+int CMotorCfg::AddSingleMotorCfg(string name, MotorCfg _motorCfg)
+{
+	motorCfgMap.insert(make_pair(name, _motorCfg));
+	return 0;
+}
+
+int CMotorCfg::DeleteSingleMotorCfg(string name)
 {
 	motorCfgMap.erase(name);
 	return 0;
 }
 
-int CMotorCfg::CleanMotorCfg(string name)
+int CMotorCfg::ClearAllMotorCfg()
 {
-	motorCfgMap.erase(motorCfgMap.begin(), motorCfgMap.end());
+	motorCfgMap.clear();
 	return 0;
 }
+

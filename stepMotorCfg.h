@@ -2,21 +2,9 @@
 #include <iostream>
 #include <vector>
 #include <map>
-using namespace std;
+#include "define.h"
 
-//定义数据类型
-typedef struct MotorCfg
-{
-	double VMax;
-	double A1;
-	double A2;
-	double V_A1A2;
-	double D1;
-	double D2;
-	double V_D1D2;
-	double VStart;
-	double VStop;
-}MotorCfg;
+using namespace std;
 
 class CMotorCfg
 {
@@ -25,7 +13,7 @@ public:
 	~CMotorCfg();
 private:
 	static CMotorCfg* ins;
-
+	map<string, MotorCfg> motorCfgMap;
 public:
 	static CMotorCfg* GetInstance()
 	{
@@ -35,10 +23,13 @@ public:
 		}
 		return ins;	
 	}
-	map<string , MotorCfg> motorCfgMap;
-	MotorCfg GetMotorCfgFromName(string name);
-	int AddMotorCfg(string name, MotorCfg motorCfg);
-	int DeleteMotorCfg(string name);
-	int CleanMotorCfg(string name);
+	
+	MotorSpdCfg GetMotorSpdCfgFromName(string name,uint8_t spdIndex);
+	MotorSpdCfg GetMotorSpdCfgFromName(string name, string spdName);
+	MotorBaseCfg GetMotorBaseCfgFromName(string name);
+	int ClearAllMotorCfg();
+	int LoadMotorCfg(map<string, MotorCfg> _motorCfgMap);
+	int AddSingleMotorCfg(string name, MotorCfg _motorCfg);
+	int DeleteSingleMotorCfg(string name);
 };
 

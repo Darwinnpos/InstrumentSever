@@ -141,10 +141,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="abstractDevice.cpp" />
+    <ClCompile Include="define.cpp" />
+    <ClCompile Include="device2Can.cpp" />
+    <ClCompile Include="flow.cpp" />
+    <ClCompile Include="instrument.cpp" />
+    <ClCompile Include="IOCfg.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stepMotorCfg.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="define.h" />
+    <ClInclude Include="device2Can.h" />
+    <ClInclude Include="flow.h" />
+    <ClInclude Include="instrument.h" />
+    <ClInclude Include="interface.h" />
+    <ClInclude Include="IOCfg.h" />
+    <ClInclude Include="protoCfg.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="abstractDevice.h" />
     <ClInclude Include="stepMotorCfg.h" />
