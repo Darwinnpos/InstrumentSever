@@ -43,30 +43,23 @@ int CFlow::FlowExe(Flow flow)
 	//将时序内容取出到临时的数据结构中
 	vector<subTiming> runTiming = flow.timing.TimingVec;	
 	vector<thread*> threads;
-	subTiming runSubTiming;
 	//遍历较为大的动作组 支持串行 + 并行设计
 	for (auto iter = runTiming.begin(); iter != runTiming.end(); iter++)
 	{
-		//先创建一个线程 执行当前任务
-		runSubTiming = *iter;
-		auto ptr_thread = new thread(ActThread, runSubTiming);
-		threads.push_back(ptr_thread);
+		//先创建一个线程 执行当前任务 
+		threads.push_back(new thread(ActThread, *iter));
 		//当发现下一包为并行流程时
-		while (iter->nextActRunNow == true)
-		{
-			//将包内容取出 并传递给线程 开启线程
+		while (iter->nextActRunNow == true)//将下一包内容取出 并传递给线程 开启线程
+		{			
 			iter++;
-			runSubTiming = *iter;			
-			ptr_thread = new thread(ActThread, runSubTiming);
-			threads.push_back(ptr_thread);
+			threads.push_back(new thread(ActThread, *iter));
 		}
 		//判断每个线程是否结束 如果结束 则执行下一单元
 		for (auto iter = threads.begin(); iter < threads.end(); iter++)
 		{
-			thread* x = *iter;
-			x->join();
+			(*iter)->join();
 		}
-		threads.clear();
+		threads.clear(); //清空并行控制线程指针
 	}
 	return 0;
 }
