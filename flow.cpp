@@ -3,9 +3,8 @@
 #include "instrument.h"
 #include "protoCfg.h"
 #include <thread>
-#include <process.h>
 #include <stdio.h>
-#include <Windows.h>
+
 
 
 CFlow::CFlow()
@@ -19,12 +18,16 @@ CFlow::~CFlow()
 {
 }
 
+void cc()
+{
+}
+
 
 //动作包执行函数 仅支持串行 最小为1个动作单元
-DWORD WINAPI ActThread(PVOID _runSubTiming)
+void ActThread(subTiming _runSubTiming)
 {
-	subTiming* runSubTiming = (subTiming*)_runSubTiming;
-	vector<DevActInfo> runActInfoGroup = runSubTiming->actInfoGroup;
+	subTiming runSubTiming = _runSubTiming;	
+	vector<DevActInfo> runActInfoGroup = runSubTiming.actInfoGroup;
 	for (auto iter2 = runActInfoGroup.begin(); iter2 != runActInfoGroup.end(); iter2++)
 	{
 		string runDeviceName = iter2->device_name;
@@ -33,41 +36,37 @@ DWORD WINAPI ActThread(PVOID _runSubTiming)
 		DeviceInfo runDeviceInfo = CInstrument::GetInstance()->GetDevcieInfoFromName(runDeviceName);
 		CInstrument::GetInstance()->DeviceToCan(&runDeviceInfo, &runActInfo);
 	}
-	return 0;
 }
 
 int CFlow::FlowExe(Flow flow)
 {
-	//将时序取出到临时的数据结构中
+	//将时序内容取出到临时的数据结构中
 	vector<subTiming> runTiming = flow.timing.TimingVec;	
-	HANDLE thread[255];//最大支持255线程
-	uint8_t paralleActNumber = 0;
+	vector<thread*> threads;
 	subTiming runSubTiming;
-	//遍历较为大的动作组 支持串行+并行设计
+	//遍历较为大的动作组 支持串行 + 并行设计
 	for (auto iter = runTiming.begin(); iter != runTiming.end(); iter++)
 	{
 		//先创建一个线程 执行当前任务
 		runSubTiming = *iter;
-		thread[paralleActNumber] = CreateThread(NULL, 0, ActThread, &runSubTiming, 0, NULL);
-
+		auto ptr_thread = new thread(ActThread, runSubTiming);
+		threads.push_back(ptr_thread);
 		//当发现下一包为并行流程时
 		while (iter->nextActRunNow == true)
 		{
 			//将包内容取出 并传递给线程 开启线程
 			iter++;
-			runSubTiming = *iter;
-			thread[++paralleActNumber] = CreateThread(NULL, 0, ActThread, &runSubTiming, 0, NULL);
+			runSubTiming = *iter;			
+			ptr_thread = new thread(ActThread, runSubTiming);
+			threads.push_back(ptr_thread);
 		}
 		//判断每个线程是否结束 如果结束 则执行下一单元
-		for (int i = 0; i < paralleActNumber; i++)
+		for (auto iter = threads.begin(); iter < threads.end(); iter++)
 		{
-			static bool ret;
-			PDWORD pdwExitCode = nullptr;
-			ret = GetExitCodeThread(thread[i], pdwExitCode);
-			if (ret != true)
-				i = 0;
-			Sleep(10);
+			thread* x = *iter;
+			x->join();
 		}
+		threads.clear();
 	}
 	return 0;
 }

@@ -24,7 +24,7 @@
     <ProjectGuid>{cb0aa0c9-6f39-44b2-aeec-be022279be83}</ProjectGuid>
     <RootNamespace>abstractDevice</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>device</ProjectName>
+    <ProjectName>InsrumentServer</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
